@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="580dp"
+        android:height="300dp"
+        android:drawable="@drawable/cardrowbg"
+        />
+    <item
+
+        android:width="180dp"
+        android:height="280dp"
+        android:top="10dp"
+        android:left="10dp"
+        android:drawable="@drawable/c1"
+        />
+    <item
+
+        android:width="180dp"
+        android:height="280dp"
+        android:top="10dp"
+        android:gravity="center"
+        android:bottom="10dp"
+        android:drawable="@drawable/c2"
+        />
+    <item
+
+        android:width="180dp"
+        android:height="280dp"
+        android:top="10dp"
+        android:right="10dp"
+        android:gravity="end"
+        android:drawable="@drawable/c3"
+        />
+</layer-list>

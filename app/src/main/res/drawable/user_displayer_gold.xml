@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/gold_winner_user"
+        android:width="250dp"
+        android:height="250dp"
+        android:top="80dp"
+        android:gravity="center"
+        android:drawable="@drawable/propic1"
+        />
+    <item
+        android:width="400dp"
+        android:height="383dp"
+        android:drawable="@drawable/goldwinner"
+        />
+</layer-list>

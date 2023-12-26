@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/gold_winner_user"
+        android:width="350dp"
+        android:height="350dp"
+        android:gravity="center"
+        android:drawable="@drawable/defprofile"
+        />
+    <item
+        android:width="400dp"
+        android:height="383dp"
+        android:drawable="@drawable/bronzewinner"
+        />
+</layer-list>
