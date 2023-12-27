@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     boolean ShowCardsBanner = false;
     private long first, second, third = 0;
     boolean BetAllow = false;
+    private String username,userId;
     int[][] Trail = {{4, 4, 4}, {1, 1, 1}, {12, 12, 12}};
     int[][] Pure = {{2, 3, 4}, {8, 9, 10}, {1, 2, 3}, {1, 13, 12}, {7, 6, 5}};
     int[][] Sequence = {{12, 11, 10}, {5, 4, 3}, {10, 9, 8}, {4, 5, 6}, {9, 10, 11}, {1, 13, 12}, {13, 12, 11}};
@@ -169,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
-        final DocumentReference UserdocRef = db.collection("users").document("10002");
+        final DocumentReference UserdocRef = db.collection("users").document(userId);
         Map<String, Object> TestDat = new HashMap<>();
         TestDat.put("LOG", false);
         UserdocRef.update(TestDat);
@@ -180,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
-        final DocumentReference UserdocRef = db.collection("users").document("10002");
+        final DocumentReference UserdocRef = db.collection("users").document(userId);
         Map<String, Object> TestDat = new HashMap<>();
         TestDat.put("LOG", true);
         UserdocRef.update(TestDat);
@@ -192,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
             FirebaseFirestore db;
             db = FirebaseFirestore.getInstance();
-            final DocumentReference UserdocRef = db.collection("users").document("10002");
+            final DocumentReference UserdocRef = db.collection("users").document(userId);
             Map<String, Object> TestDat = new HashMap<>();
             TestDat.put("LOG", false);
             UserdocRef.update(TestDat);
@@ -211,6 +212,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        userId=getIntent().getStringExtra("userId");
+        username=getIntent().getStringExtra("username");
 
         firebaseAuth = FirebaseAuth.getInstance();
         CheckforTimer();
@@ -456,14 +460,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addUser() {
-        DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document("10002");
+        DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(userId);
         Map<String, Object> TestData1 = new HashMap<>();
         TestData1.put("MyPotA", 0);
         TestData1.put("MyPotB", 0);
         TestData1.put("MyPotC", 0);
         TestData1.put("LOG", false);
         TestData1.put("YourWager", 0);
-        TestData1.put("Coins", 895625);
+        TestData1.put("Coins", 995625);
         docRef.set(TestData1).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -589,7 +593,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore Db;
         Db= FirebaseFirestore.getInstance();
         DocumentReference Coll = Db.collection("SpinnerTimerBools").document("TeenPatti");
-        DocumentReference UserColl =Db.collection("users").document("10002");
+        DocumentReference UserColl =Db.collection("users").document(userId);
         int UCoins = (int) (UserCoins - DeviceCoins);
         if (Area == 0) {
             if (UCoins - Coins >= 0) {
@@ -647,7 +651,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore Db;
         Db = FirebaseFirestore.getInstance();
         DocumentReference Coll = Db.collection("SpinnerTimerBools").document("TeenPatti");
-        DocumentReference UserColl = Db.collection("users").document("10002");
+        DocumentReference UserColl = Db.collection("users").document(userId);
 
         int MyCoins = MyPotA + MyPotB + MyPotC;
         Map<String, Object> TestData1 = new HashMap<>();
@@ -672,7 +676,7 @@ public class MainActivity extends AppCompatActivity {
         if (UCoins - Coins >= 0) {
             FirebaseFirestore Db;
             Db = FirebaseFirestore.getInstance();
-            DocumentReference Coll = Db.collection("users").document("10002");
+            DocumentReference Coll = Db.collection("users").document(userId);
             Map<String, Object> TestData = new HashMap<>();
             TestData.put("Coins", FieldValue.increment(-Coins));
             TestData.put("YourWager", FieldValue.increment(Coins));
@@ -692,7 +696,7 @@ public class MainActivity extends AppCompatActivity {
         TestData.put("BetAllowed", true);
         TestData.put("timerstart", true);
         Coll.update(TestData);
-        int Timerr = 20;
+        int Timerr = 30;
         for (int a = 0; a <= Timerr; a++) {
             Handler handler1 = new Handler();
             int AA = a;
@@ -1146,12 +1150,12 @@ public class MainActivity extends AppCompatActivity {
     void SetUserBetOnResults() {
         FirebaseFirestore Db;
         Db = FirebaseFirestore.getInstance();
-        final DocumentReference Coll = Db.collection("SpinnerTimerBools").document("TeenPatti").collection("Results").document(String.valueOf(RoundNum)).collection("Game").document("10002");
-        final DocumentReference docRef = Db.collection("users").document("10002");
+        final DocumentReference Coll = Db.collection("SpinnerTimerBools").document("TeenPatti").collection("Results").document(String.valueOf(RoundNum)).collection("Game").document(userId);
+        final DocumentReference docRef = Db.collection("users").document(userId);
         Map<String, Object> TestData = new HashMap<>();
         TestData.put("BetCoins", YourWager);
         TestData.put("WinCoins", PrizeCoins);
-        TestData.put("username", "Amit");
+        TestData.put("username", username);
         TestData.put("userimage", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-HM2SXYoFDGDMERjCJ3iRwYKfYGJdlMrVog8Zpufs-Am_9GY6Tm8bXFUkbEwS7xzWEhU&usqp=CAU");
 
 //        Log.i("checkName", "user name ="+CommonUtils.name(this));
@@ -1273,7 +1277,7 @@ public class MainActivity extends AppCompatActivity {
     void GetLoopCards(int[] MyCards, ImageView[] r1, ImageView[] r2, ImageView[] r3, ArrayList<Long> r, ArrayList<String> Ty, ArrayList<Boolean> AR) {
         FirebaseFirestore Db;
         Db = FirebaseFirestore.getInstance();
-        DocumentReference UserDocRef = Db.collection("users").document("10002");
+        DocumentReference UserDocRef = Db.collection("users").document(userId);
         UserDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -1330,12 +1334,10 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
         final DocumentReference docRef = db.collection("SpinnerTimerBools").document("TeenPatti");
-        final DocumentReference UserdocRef = db.collection("users").document("10002");
+        final DocumentReference UserdocRef = db.collection("users").document(userId);
         Map<String, Object> TestDat = new HashMap<>();
         TestDat.put("LOG", true);
         UserdocRef.update(TestDat);
-
-
 
         listenerUserReg = UserdocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -1534,7 +1536,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 //    private void updateCoins(Long coins) {
-//        new ProfileMvvm().teenPattiBet(this, "10002", String.valueOf(coins)).observe(this, new Observer<TeenPattiBetModel>() {
+//        new ProfileMvvm().teenPattiBet(this, userId, String.valueOf(coins)).observe(this, new Observer<TeenPattiBetModel>() {
 //            @Override
 //            public void onChanged(TeenPattiBetModel teenPattiBetModel) {
 //                if (teenPattiBetModel.getSuccess().equalsIgnoreCase("1")) {
@@ -1773,7 +1775,7 @@ public class MainActivity extends AppCompatActivity {
     void SetPotValuesDefault(int i) {
         FirebaseFirestore Db;
         Db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = Db.collection("users").document("10002");
+        DocumentReference docRef = Db.collection("users").document(userId);
 
 
 
