@@ -2,25 +2,37 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
 
+<!--    <item-->
+<!--        android:width="500dp"-->
+<!--        android:height="500dp"-->
+<!--        >-->
+<!--        <shape-->
+<!--            android:shape = "rectangle"-->
+<!--            xmlns:android = "http://schemas.android.com/apk/res/android" >-->
+<!--            <gradient-->
+<!--                android:startColor = "#51299d"-->
+<!--                android:endColor = "#8f05c4"-->
+<!--                android:angle = "0"-->
+<!--                android:type = "linear" />-->
+<!--        </shape>-->
+<!--    </item>-->
+<!--    <item-->
+<!--        android:width="@dimen/dp_300"-->
+<!--        android:height="350dp"-->
+<!--        android:gravity="center"-->
+<!--        android:drawable="@drawable/rbird"-->
+<!--        />-->
     <item
-        android:width="500dp"
-        android:height="500dp"
-        >
-        <shape
-            android:shape = "rectangle"
-            xmlns:android = "http://schemas.android.com/apk/res/android" >
-            <gradient
-                android:startColor = "#51299d"
-                android:endColor = "#8f05c4"
-                android:angle = "0"
-                android:type = "linear" />
-        </shape>
-    </item>
-    <item
-        android:width="@dimen/dp_300"
-        android:height="350dp"
+        android:width="@dimen/dp_400"
+        android:height="450dp"
         android:gravity="center"
-        android:drawable="@drawable/rbird"
+        android:drawable="@drawable/frame"
+        />
+    <item
+        android:width="@dimen/dp_200"
+        android:height="@dimen/dp_250"
+        android:gravity="center"
+        android:drawable="@drawable/king3"
         />
 
 

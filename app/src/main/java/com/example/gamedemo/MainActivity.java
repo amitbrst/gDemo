@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
     ListenerRegistration listenerRegdoc;
     ListenerRegistration listenerUserReg;
     boolean BetOnGoing = false;
+    private String username,userId;
 
 
     public enum CoinValues {
@@ -170,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
-        final DocumentReference UserdocRef = db.collection("users").document("10002");
+        final DocumentReference UserdocRef = db.collection("users").document(userId);
         Map<String, Object> TestDat = new HashMap<>();
         TestDat.put("LOG", false);
         UserdocRef.update(TestDat);
@@ -181,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
-        final DocumentReference UserdocRef = db.collection("users").document("10002");
+        final DocumentReference UserdocRef = db.collection("users").document(userId);
         Map<String, Object> TestDat = new HashMap<>();
         TestDat.put("LOG", true);
         UserdocRef.update(TestDat);
@@ -193,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
             FirebaseFirestore db;
             db = FirebaseFirestore.getInstance();
-            final DocumentReference UserdocRef = db.collection("users").document("10002");
+            final DocumentReference UserdocRef = db.collection("users").document(userId);
             Map<String, Object> TestDat = new HashMap<>();
             TestDat.put("LOG", false);
             UserdocRef.update(TestDat);
@@ -212,6 +213,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        userId=getIntent().getStringExtra("userId");
+        username=getIntent().getStringExtra("username");
 
         firebaseAuth = FirebaseAuth.getInstance();
         CheckforTimer();
@@ -405,6 +409,7 @@ public class MainActivity extends AppCompatActivity {
         CloseAllRanks(1);
 
         ImageButton RankButton = findViewById(R.id.rankbutton);
+        RankButton.setVisibility(View.GONE);
         RankButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -456,18 +461,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addUser() {
-        DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document("10002");
+        DocumentReference docRef = FirebaseFirestore.getInstance().collection("users").document(userId);
         Map<String, Object> TestData1 = new HashMap<>();
         TestData1.put("MyPotA", 0);
         TestData1.put("MyPotB", 0);
         TestData1.put("MyPotC", 0);
         TestData1.put("LOG", false);
         TestData1.put("YourWager", 0);
-        TestData1.put("Coins", 895625);
+        TestData1.put("Coins", 15000);
         docRef.set(TestData1).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(MainActivity.this, "user created", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "user created", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -589,7 +594,7 @@ public class MainActivity extends AppCompatActivity {
 //        FirebaseFirestore Db;
 //        Db= FirebaseFirestore.getInstance();
 //        DocumentReference Coll = Db.collection("SpinnerTimerBools").document("TeenPatti");
-//        DocumentReference UserColl =Db.collection("users").document("10002");
+//        DocumentReference UserColl =Db.collection("users").document(userId);
         int UCoins = (int) (UserCoins - DeviceCoins);
         if (Area == 0) {
             if (UCoins - Coins >= 0) {
@@ -647,7 +652,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore Db;
         Db = FirebaseFirestore.getInstance();
         DocumentReference Coll = Db.collection("SpinnerTimerBools").document("TeenPatti");
-        DocumentReference UserColl = Db.collection("users").document("10002");
+        DocumentReference UserColl = Db.collection("users").document(userId);
 
         int MyCoins = MyPotA + MyPotB + MyPotC;
         Map<String, Object> TestData1 = new HashMap<>();
@@ -672,7 +677,7 @@ public class MainActivity extends AppCompatActivity {
         if (UCoins - Coins >= 0) {
             FirebaseFirestore Db;
             Db = FirebaseFirestore.getInstance();
-            DocumentReference Coll = Db.collection("users").document("10002");
+            DocumentReference Coll = Db.collection("users").document(userId);
             Map<String, Object> TestData = new HashMap<>();
             TestData.put("Coins", FieldValue.increment(-Coins));
             TestData.put("YourWager", FieldValue.increment(Coins));
@@ -1157,8 +1162,8 @@ public class MainActivity extends AppCompatActivity {
     void SetUserBetOnResults() {
         FirebaseFirestore Db;
         Db = FirebaseFirestore.getInstance();
-        final DocumentReference Coll = Db.collection("SpinnerTimerBools").document("TeenPatti").collection("Results").document(String.valueOf(RoundNum)).collection("Game").document("10002");
-        final DocumentReference docRef = Db.collection("users").document("10002");
+        final DocumentReference Coll = Db.collection("SpinnerTimerBools").document("TeenPatti").collection("Results").document(String.valueOf(RoundNum)).collection("Game").document(userId);
+        final DocumentReference docRef = Db.collection("users").document(userId);
         Map<String, Object> TestData = new HashMap<>();
         TestData.put("BetCoins", YourWager);
         TestData.put("WinCoins", PrizeCoins);
@@ -1284,7 +1289,7 @@ public class MainActivity extends AppCompatActivity {
     void GetLoopCards(int[] MyCards, ImageView[] r1, ImageView[] r2, ImageView[] r3, ArrayList<Long> r, ArrayList<String> Ty, ArrayList<Boolean> AR) {
         FirebaseFirestore Db;
         Db = FirebaseFirestore.getInstance();
-        DocumentReference UserDocRef = Db.collection("users").document("10002");
+        DocumentReference UserDocRef = Db.collection("users").document(userId);
         UserDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -1341,7 +1346,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
         final DocumentReference docRef = db.collection("SpinnerTimerBools").document("TeenPatti");
-        final DocumentReference UserdocRef = db.collection("users").document("10002");
+        final DocumentReference UserdocRef = db.collection("users").document(userId);
         Map<String, Object> TestDat = new HashMap<>();
         TestDat.put("LOG", true);
         UserdocRef.update(TestDat);
@@ -1365,6 +1370,7 @@ public class MainActivity extends AppCompatActivity {
                         UserCoins = snapshot.getLong("Coins");
                         TextView CoinsText = findViewById(R.id.CoinsText);
                         CoinsText.setText(prettyCount(UserCoins));
+//                        Toast.makeText(MainActivity.this, "one call", Toast.LENGTH_SHORT).show();
 
                         try {
 //                            updateCoins(UserCoins);
@@ -1453,6 +1459,7 @@ public class MainActivity extends AppCompatActivity {
 //                        showTopWiner(RoundNum);
                         }
                         if (DeviceCoins != 0) {
+//                            Toast.makeText(MainActivity.this, "two call", Toast.LENGTH_SHORT).show();
                             TextView CoinsText = findViewById(R.id.CoinsText);
                             CoinsText.setText(prettyCount(UserCoins - DeviceCoins));
                             try {
@@ -1461,6 +1468,7 @@ public class MainActivity extends AppCompatActivity {
                                 Log.i("error", "error =====>" + e.getMessage());
                             }
                         } else {
+//                            Toast.makeText(MainActivity.this, "three call", Toast.LENGTH_SHORT).show();
                             TextView CoinsText = findViewById(R.id.CoinsText);
                             CoinsText.setText(prettyCount(UserCoins));
 
@@ -1545,7 +1553,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 //    private void updateCoins(Long coins) {
-//        new ProfileMvvm().teenPattiBet(this, "10002", String.valueOf(coins)).observe(this, new Observer<TeenPattiBetModel>() {
+//        new ProfileMvvm().teenPattiBet(this, userId, String.valueOf(coins)).observe(this, new Observer<TeenPattiBetModel>() {
 //            @Override
 //            public void onChanged(TeenPattiBetModel teenPattiBetModel) {
 //                if (teenPattiBetModel.getSuccess().equalsIgnoreCase("1")) {
@@ -1784,7 +1792,7 @@ public class MainActivity extends AppCompatActivity {
     void SetPotValuesDefault(int i) {
         FirebaseFirestore Db;
         Db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = Db.collection("users").document("10002");
+        DocumentReference docRef = Db.collection("users").document(userId);
 
 
 
@@ -1863,21 +1871,34 @@ public class MainActivity extends AppCompatActivity {
                                 ImageView WBird = findViewById(R.id.WinningBird);
 
                                 if (i == 0) {
-                                    Bird.setImageResource(R.drawable.bbird);
-                                    WBird.setImageResource(R.drawable.bbird);
+                                    Bird.setImageResource(R.drawable.king1);
+                                    WBird.setImageResource(R.drawable.king1);
                                 } else if (i == 1) {
-                                    Bird.setImageResource(R.drawable.pbird);
-                                    WBird.setImageResource(R.drawable.pbird);
+                                    Bird.setImageResource(R.drawable.king2);
+                                    WBird.setImageResource(R.drawable.king2);
                                 } else if (i == 2) {
-                                    Bird.setImageResource(R.drawable.rbird);
-                                    WBird.setImageResource(R.drawable.rbird);
+                                    Bird.setImageResource(R.drawable.king3);
+                                    WBird.setImageResource(R.drawable.king3);
                                 }
                             }
 
                         }
                     } else if (AA == 9) {
+                        // Create a new Handler
+                        Handler handler = new Handler();
 
-                        ShowDoneScreen(0);
+                        // Create a Runnable that calls the doSomething() method
+                        Runnable runnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                ShowDoneScreen(0);
+                            }
+                        };
+
+                        // Post the Runnable with a delay
+                        handler.postDelayed(runnable, 2000);
+
+//                        ShowDoneScreen(0);
                     }
 
                     for (int j = 0; j < 3; j++) {

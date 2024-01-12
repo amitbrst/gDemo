@@ -414,8 +414,8 @@
                     >
                     <ImageButton
                         android:id="@+id/bbirdChair"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="@dimen/space80"
+                        android:layout_height="@dimen/space80"
                         android:background="@android:color/transparent"
                         android:scaleType="fitCenter"
                         android:src="@drawable/bbirdclickpanel" />
@@ -440,8 +440,8 @@
                     >
                     <ImageButton
                         android:id="@+id/pbirdChair"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="@dimen/space80"
+                        android:layout_height="@dimen/space80"
                         android:background="@android:color/transparent"
                         android:scaleType="fitCenter"
                         android:src="@drawable/pbirdclickpanel" />
@@ -466,8 +466,8 @@
                     >
                     <ImageButton
                         android:id="@+id/rbirdChair"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="@dimen/space80"
+                        android:layout_height="@dimen/space80"
                         android:background="@android:color/transparent"
                         android:scaleType="fitCenter"
                         android:src="@drawable/rbirdclickpanel" />
@@ -526,7 +526,7 @@
                                     android:gravity="center"
                                     android:text="A"
                                     android:textColor="@color/white"
-                                    android:textSize="18sp"
+                                    android:textSize="16dp"
                                     android:textStyle="bold" />
 
                             </com.google.android.material.card.MaterialCardView>
@@ -610,7 +610,7 @@
                                     android:gravity="center"
                                     android:text="B"
                                     android:textColor="@color/white"
-                                    android:textSize="18sp"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
 
                             </com.google.android.material.card.MaterialCardView>
@@ -693,7 +693,7 @@
                                     android:gravity="center"
                                     android:text="C"
                                     android:textColor="@color/white"
-                                    android:textSize="18sp"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
 
                             </com.google.android.material.card.MaterialCardView>
@@ -1029,7 +1029,7 @@
                         android:layout_width="125dp"
                         android:layout_height="125dp"
                         android:layout_marginTop="20dp"
-                        android:src="@drawable/bbird" />
+                        android:src="@drawable/king1" />
                     <LinearLayout
                         android:layout_marginTop="20dp"
                         android:layout_width="wrap_content"
@@ -1055,7 +1055,7 @@
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:elevation="3dp"
-                                android:src="@drawable/bbird" />
+                                android:src="@drawable/king1" />
 
                         </LinearLayout>
                         <LinearLayout
@@ -1142,6 +1142,7 @@
 
                 </LinearLayout>
                 <RelativeLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:elevation="3dp"
@@ -1404,7 +1405,7 @@
                         android:layout_alignEnd="@+id/HeadingDaily"
                         android:layout_marginEnd="30dp"
                         android:background="@android:color/transparent"
-                        android:scaleType="fitXY"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/close"
                         />
                     <TextView

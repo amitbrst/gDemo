@@ -9,6 +9,6 @@
         android:width="180dp"
         android:height="180dp"
         android:gravity="center"
-        android:drawable="@drawable/pbird"
+        android:drawable="@drawable/king2"
         />
 </layer-list>
