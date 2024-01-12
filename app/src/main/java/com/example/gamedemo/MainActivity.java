@@ -126,8 +126,9 @@ public class MainActivity extends AppCompatActivity {
     long DeviceCoins = 0;
     long YourWager = 0;
     long PrizeCoins = 0;
-    double MulPrize = 2.9;
+    double MulPrize = 3;
     int RoundNum = 0;
+    int Arc = 0;
     int MyPotA = 0;
     int MyPotB = 0;
     int MyPotC = 0;
@@ -393,7 +394,6 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "okkk", Toast.LENGTH_SHORT).show();
 
                 StartTimer();
             }
@@ -586,49 +586,49 @@ public class MainActivity extends AppCompatActivity {
 
     void BetArea(int Area, int Coins) {
 
-        FirebaseFirestore Db;
-        Db= FirebaseFirestore.getInstance();
-        DocumentReference Coll = Db.collection("SpinnerTimerBools").document("TeenPatti");
-        DocumentReference UserColl =Db.collection("users").document("10002");
+//        FirebaseFirestore Db;
+//        Db= FirebaseFirestore.getInstance();
+//        DocumentReference Coll = Db.collection("SpinnerTimerBools").document("TeenPatti");
+//        DocumentReference UserColl =Db.collection("users").document("10002");
         int UCoins = (int) (UserCoins - DeviceCoins);
         if (Area == 0) {
             if (UCoins - Coins >= 0) {
                 MyPotA += Coins;
                 DeviceCoins += Coins;
                 GPotA += Coins;
-                BetCoins(Coins);
-                Map<String, Object> TestData1 = new HashMap<>();
-                Map<String, Object> TestData2 = new HashMap<>();
-                TestData1.put("PotA", FieldValue.increment(Coins));
-                TestData2.put("MyPotA", FieldValue.increment(Coins));
-                Coll.update(TestData1);
-                UserColl.update(TestData2);
+//                BetCoins(Coins);
+//                Map<String, Object> TestData1 = new HashMap<>();
+//                Map<String, Object> TestData2 = new HashMap<>();
+//                TestData1.put("PotA", FieldValue.increment(Coins));
+//                TestData2.put("MyPotA", FieldValue.increment(Coins));
+//                Coll.update(TestData1);
+//                UserColl.update(TestData2);
             }
         } else if (Area == 1) {
             if (UCoins - Coins >= 0) {
                 MyPotB += Coins;
                 DeviceCoins += Coins;
                 GPotB += Coins;
-                BetCoins(Coins);
-                Map<String, Object> TestData1 = new HashMap<>();
-                Map<String, Object> TestData2 = new HashMap<>();
-                TestData1.put("PotB", FieldValue.increment(Coins));
-                TestData2.put("MyPotB", FieldValue.increment(Coins));
-                Coll.update(TestData1);
-                UserColl.update(TestData2);
+//                BetCoins(Coins);
+//                Map<String, Object> TestData1 = new HashMap<>();
+//                Map<String, Object> TestData2 = new HashMap<>();
+//                TestData1.put("PotB", FieldValue.increment(Coins));
+//                TestData2.put("MyPotB", FieldValue.increment(Coins));
+//                Coll.update(TestData1);
+//                UserColl.update(TestData2);
             }
         } else if (Area == 2) {
             if (UCoins - Coins >= 0) {
                 MyPotC += Coins;
                 DeviceCoins += Coins;
                 GPotC += Coins;
-                BetCoins(Coins);
-                Map<String, Object> TestData1 = new HashMap<>();
-                Map<String, Object> TestData2 = new HashMap<>();
-                TestData1.put("PotC", FieldValue.increment(Coins));
-                TestData2.put("MyPotC", FieldValue.increment(Coins));
-                Coll.update(TestData1);
-                UserColl.update(TestData2);
+//                BetCoins(Coins);
+//                Map<String, Object> TestData1 = new HashMap<>();
+//                Map<String, Object> TestData2 = new HashMap<>();
+//                TestData1.put("PotC", FieldValue.increment(Coins));
+//                TestData2.put("MyPotC", FieldValue.increment(Coins));
+//                Coll.update(TestData1);
+//                UserColl.update(TestData2);
             }
         }
         String PotAString = "You: " + prettyCount(MyPotA);
@@ -758,6 +758,10 @@ public class MainActivity extends AppCompatActivity {
                             AR = 3;
                         }
 
+                        Arc=AR;
+
+                        Toast.makeText(MainActivity.this, "Area =>"+AR, Toast.LENGTH_SHORT).show();
+
                         long RNum = (long) snapshot.get("RoundNum");
                         RNum++;
 
@@ -886,14 +890,21 @@ public class MainActivity extends AppCompatActivity {
                            }
 
 
+                           int[] numbers = {1, 2, 3};
+                           Random random = new Random();
 
-                           for (int i = 0; i < 3; i++) {
-                               if (i == WinnedPot) {
-                                   Area[i] = true;
-                               } else {
-                                   Area[i] = false;
-                               }
-                           }
+                           // Generate a random index within the range of the array length
+                           int randomIndex = random.nextInt(numbers.length);
+
+//                           for (int i = 0; i < 3; i++) {
+//                               if (i == WinnedPot) {
+//                                   Area[i] = true;
+//                               } else {
+//                                   Area[i] = false;
+//                               }
+//                           }
+
+                           Area[randomIndex] = true;
 
 
                            ArrayList<Integer> NewRes = new ArrayList<Integer>();
@@ -1832,12 +1843,19 @@ public class MainActivity extends AppCompatActivity {
                             CardPotMasks[i].setVisibility(View.INVISIBLE);
                         }
 
+                        // need set prize
+
                         for (int i = 0; i < 3; i++) {
                             if (AR.get(i)) {
                                 PrizeCoins = (long) (MyPots.get(i) * MulPrize);
 
                             }
+//                            if (AR.get(Arc)) {
+//                                PrizeCoins = (long) (MyPots.get(Arc) * MulPrize);
+//
+//                            }
                         }
+
                         ShowDoneScreen(1);
                         for (int i = 0; i < 3; i++) {
                             if (AR.get(i)) {
