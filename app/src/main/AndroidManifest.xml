@@ -21,6 +21,11 @@
 
              <intent-filter>
              <action android:name="android.intent.action.MAIN" />
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> c429df2d4b79b8b9740f94ee6b2c95efb022f09b
              <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
         </activity>

@@ -4,19 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/startTimer"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_200"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_50"
-            android:text="Start"/>
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:text="Play"
+            android:textSize="@dimen/sp_30"/>
 
 <!--        <com.airbnb.lottie.LottieAnimationView-->
 <!--            android:layout_above="@+id/simpleImageView"-->
@@ -1571,6 +1574,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/RankScreenWeekly"
+
             android:elevation="3dp"
             >
             <ImageView

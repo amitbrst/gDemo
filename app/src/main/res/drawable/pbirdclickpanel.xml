@@ -23,8 +23,27 @@
 <!--        android:drawable="@drawable/pbird"-->
 <!--        />-->
     <item
+<<<<<<< HEAD
         android:width="@dimen/dp_400"
         android:height="450dp"
+=======
+        android:width="500dp"
+        android:height="500dp"
+        >
+        <shape
+            android:shape = "rectangle"
+            xmlns:android = "http://schemas.android.com/apk/res/android" >
+            <gradient
+                android:startColor = "#FF9800"
+                android:endColor = "#BD22F8"
+                android:angle = "0"
+                android:type = "linear" />
+        </shape>
+    </item>
+    <item
+        android:width="@dimen/dp_300"
+        android:height="350dp"
+>>>>>>> c429df2d4b79b8b9740f94ee6b2c95efb022f09b
         android:gravity="center"
         android:drawable="@drawable/frame"
         />

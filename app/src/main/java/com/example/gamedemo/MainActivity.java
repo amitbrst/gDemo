@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     boolean ShowCardsBanner = false;
     private long first, second, third = 0;
     boolean BetAllow = false;
+    private String username,userId;
     int[][] Trail = {{4, 4, 4}, {1, 1, 1}, {12, 12, 12}};
     int[][] Pure = {{2, 3, 4}, {8, 9, 10}, {1, 2, 3}, {1, 13, 12}, {7, 6, 5}};
     int[][] Sequence = {{12, 11, 10}, {5, 4, 3}, {10, 9, 8}, {4, 5, 6}, {9, 10, 11}, {1, 13, 12}, {13, 12, 11}};
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     ListenerRegistration listenerRegdoc;
     ListenerRegistration listenerUserReg;
     boolean BetOnGoing = false;
-    private String username,userId;
+//    private String username,userId;
 
 
     public enum CoinValues {
@@ -213,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        
         userId=getIntent().getStringExtra("userId");
         username=getIntent().getStringExtra("username");
 
@@ -590,11 +591,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void BetArea(int Area, int Coins) {
-
 //        FirebaseFirestore Db;
 //        Db= FirebaseFirestore.getInstance();
 //        DocumentReference Coll = Db.collection("SpinnerTimerBools").document("TeenPatti");
 //        DocumentReference UserColl =Db.collection("users").document(userId);
+
+        FirebaseFirestore Db;
+        Db= FirebaseFirestore.getInstance();
+        DocumentReference Coll = Db.collection("SpinnerTimerBools").document("TeenPatti");
+        DocumentReference UserColl =Db.collection("users").document(userId);
+
         int UCoins = (int) (UserCoins - DeviceCoins);
         if (Area == 0) {
             if (UCoins - Coins >= 0) {
@@ -697,7 +703,7 @@ public class MainActivity extends AppCompatActivity {
         TestData.put("BetAllowed", true);
         TestData.put("timerstart", true);
         Coll.update(TestData);
-        int Timerr = 20;
+        int Timerr = 30;
         for (int a = 0; a <= Timerr; a++) {
             Handler handler1 = new Handler();
             int AA = a;
@@ -1167,7 +1173,7 @@ public class MainActivity extends AppCompatActivity {
         Map<String, Object> TestData = new HashMap<>();
         TestData.put("BetCoins", YourWager);
         TestData.put("WinCoins", PrizeCoins);
-        TestData.put("username", "Amit");
+        TestData.put("username", username);
         TestData.put("userimage", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-HM2SXYoFDGDMERjCJ3iRwYKfYGJdlMrVog8Zpufs-Am_9GY6Tm8bXFUkbEwS7xzWEhU&usqp=CAU");
 
 //        Log.i("checkName", "user name ="+CommonUtils.name(this));
@@ -1350,8 +1356,6 @@ public class MainActivity extends AppCompatActivity {
         Map<String, Object> TestDat = new HashMap<>();
         TestDat.put("LOG", true);
         UserdocRef.update(TestDat);
-
-
 
         listenerUserReg = UserdocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
